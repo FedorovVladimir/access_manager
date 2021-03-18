@@ -1,0 +1,23 @@
+version: "3.3"
+
+volumes:
+  base_volume: { }
+
+networks:
+  net:
+    external: true
+
+services:
+
+  base:
+    container_name: base
+    image: postgres:11.10
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: access_manager
+    networks:
+      - net
+    volumes:
+      - base_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432

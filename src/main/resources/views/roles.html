@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Роли</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">access_manager</a>
+        <div class="navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/page_roles">Роли</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page_functions">Функции</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page_permissions">Разрешения</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+
+            <h1>Роли</h1>
+
+            <h3 class="mt-5 mb-3">Таблица ролей</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">?:)</th>
+                    <th scope="col">Код</th>
+                    <th scope="col">Название</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="role, iStat: ${ data }">
+                    <th scope="row" th:text="${ iStat.index + 1 }"></th>
+                    <td th:text="${ role.code }"></td>
+                    <td th:text="${ role.name }"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h3 class="mt-5 mb-3">Добавить роль</h3>
+
+            <form>
+                <div class="mb-3">
+                    <label class="form-label" for="code">Код <span class="text-danger">*</span></label>
+                    <input class="form-control" id="code" required type="text">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="name">Название <span class="text-danger">*</span></label>
+                    <input class="form-control" id="name" required type="text">
+                </div>
+            </form>
+            <button class="btn btn-secondary" id="send">Создать роль</button>
+
+        </div>
+        <div class="col-2">
+        </div>
+    </div>
+</div>
+
+<script>
+    function id(id) {
+        return document.getElementById(id);
+    }
+
+    function check(v) {
+        return v !== ""
+    }
+
+    id("send").addEventListener("click", function () {
+        var code = id("code").value
+        if (!check(code)) {
+            return
+        }
+        var name = id("name").value
+        if (!check(name)) {
+            return
+        }
+        let data = {
+            code: code,
+            name: name
+        }
+        var json = JSON.stringify(data)
+
+        fetch("http://localhost:8080/roles", {
+            method: "POST",
+            body: json,
+            headers:{"content-type": "application/json"}
+        }).then((response) => {
+            if (response.status !== 200) {
+                document.location.reload(true);
+            }
+        })
+    });
+
+</script>
+
+</body>
+</html>
