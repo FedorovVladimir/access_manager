@@ -1,4 +1,4 @@
-package tech.estesis.entities
+package tech.crabs.access_manager.entities
 
 class ResponseRole(
 

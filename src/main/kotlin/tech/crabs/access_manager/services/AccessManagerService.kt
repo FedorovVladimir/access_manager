@@ -1,8 +1,8 @@
-package tech.estesis.services
+package tech.crabs.access_manager.services
 
-import tech.estesis.entities.Function
-import tech.estesis.entities.Permission
-import tech.estesis.entities.Role
+import tech.crabs.access_manager.entities.Function
+import tech.crabs.access_manager.entities.Permission
+import tech.crabs.access_manager.entities.Role
 import java.util.*
 import javax.inject.Singleton
 

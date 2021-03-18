@@ -1,11 +1,11 @@
-package tech.estesis
+package tech.estesis.access_manager
 
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
-import tech.estesis.entities.Function
-import tech.estesis.entities.Role
+import tech.crabs.access_manager.entities.Function
+import tech.crabs.access_manager.entities.Role
 
 @Client("/")
 interface AccessManagerClient {

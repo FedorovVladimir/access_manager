@@ -1,13 +1,13 @@
-package tech.estesis.controllers
+package tech.crabs.access_manager.controllers
 
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
-import tech.estesis.entities.Function
-import tech.estesis.entities.Role
-import tech.estesis.services.AccessManagerService
+import tech.crabs.access_manager.entities.Function
+import tech.crabs.access_manager.entities.Role
+import tech.crabs.access_manager.services.AccessManagerService
 import javax.inject.Inject
 
 @Controller
