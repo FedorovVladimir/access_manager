@@ -3,6 +3,7 @@ package tech.crabs.access_manager.services
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Permission
 import tech.crabs.access_manager.entities.Role
+import tech.crabs.access_manager.entities.RoleInfo
 import java.util.*
 import javax.inject.Singleton
 
@@ -13,16 +14,18 @@ class AccessManagerService {
 
     private var functions = LinkedList<Function>()
 
-    fun getRoles(): List<Role> {
-        return roles
+    fun getRoles(): List<RoleInfo> {
+        return roles.map { RoleInfo(it.code!!, it.name!!) }
     }
 
-    fun addRole(role: Role): Role {
+    fun addRole(role: Role): RoleInfo {
         val permissions = LinkedList<Permission>()
-        functions.forEach { function -> permissions.add(Permission(function)) }
-        role.permissions = permissions
+        functions.forEach { permissions.add(Permission(role, it)) }
         roles.add(role)
-        return role
+        return RoleInfo(
+            role.code!!,
+            role.name!!
+        )
     }
 
     fun getFunctions(): List<Function> {
@@ -30,9 +33,6 @@ class AccessManagerService {
     }
 
     fun addFunction(function: Function): Function {
-        for (role in roles) {
-            role.permissions!!.add(Permission(function))
-        }
         functions.add(function)
         return function
     }

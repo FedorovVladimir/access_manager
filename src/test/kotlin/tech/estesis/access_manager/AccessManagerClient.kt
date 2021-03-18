@@ -6,12 +6,13 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
+import tech.crabs.access_manager.entities.RoleInfo
 
 @Client("/")
 interface AccessManagerClient {
 
     @Get("/roles")
-    fun getRoles(): List<Role>
+    fun getRoles(): List<RoleInfo>
 
     @Post("/roles")
     fun addRole(@Body role: Role)

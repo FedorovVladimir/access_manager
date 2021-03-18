@@ -10,6 +10,16 @@ datasources:
     password: "${BASE_PASSWORD:`access_manager`}"
     dialect: POSTGRES
 
+jpa:
+  default:
+    entity-scan:
+      packages: 'tech.crabs.access_manager.entities'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: none
+        show_sql: true
+
 flyway:
   datasources:
     default:

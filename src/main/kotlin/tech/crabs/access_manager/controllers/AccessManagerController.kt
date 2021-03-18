@@ -7,6 +7,7 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
+import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.AccessManagerService
 import javax.inject.Inject
 
@@ -17,12 +18,12 @@ class AccessManagerController {
     private lateinit var accessManagerService: AccessManagerService
 
     @Get("/roles")
-    fun getAllRoles(): List<Role> {
+    fun getAllRoles(): List<RoleInfo> {
         return accessManagerService.getRoles()
     }
 
     @Post("/roles")
-    fun postRoles(@Body role: Role): HttpResponse<Role> {
+    fun postRoles(@Body role: Role): HttpResponse<RoleInfo> {
         return HttpResponse.created(accessManagerService.addRole(role))
     }
 

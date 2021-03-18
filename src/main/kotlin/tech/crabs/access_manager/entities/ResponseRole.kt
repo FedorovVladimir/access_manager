@@ -2,5 +2,5 @@ package tech.crabs.access_manager.entities
 
 class ResponseRole(
 
-    var data: List<Role>
+    var data: List<RoleInfo>
 )

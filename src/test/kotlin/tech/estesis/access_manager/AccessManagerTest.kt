@@ -39,22 +39,22 @@ class AccessManagerTest : StringSpec() {
             accessManagerClient.getAccesses().size shouldBe 1
         }
 
-        "У роли 'Администратор' есть одно право" {
-            val role = accessManagerClient.getRoles()[0]
-            val permissions = role.permissions
-            permissions.shouldNotBeNull()
-            permissions.size shouldBe 1
-        }
-
-        "Добавляем роль 'Оператор'" {
-            accessManagerClient.addRole(Role("OPERATOR", "Оператор"))
-        }
-
-        "У роли 'Оператор' есть одно право" {
-            val role = accessManagerClient.getRoles()[1]
-            val permissions = role.permissions
-            permissions.shouldNotBeNull()
-            permissions.size shouldBe 1
-        }
+//        "У роли 'Администратор' есть одно право" {
+//            val role = accessManagerClient.getRoles()[0]
+//            val permissions = role.permissions
+//            permissions.shouldNotBeNull()
+//            permissions.size shouldBe 1
+//        }
+//
+//        "Добавляем роль 'Оператор'" {
+//            accessManagerClient.addRole(Role("OPERATOR", "Оператор"))
+//        }
+//
+//        "У роли 'Оператор' есть одно право" {
+//            val role = accessManagerClient.getRoles()[1]
+//            val permissions = role.permissions
+//            permissions.shouldNotBeNull()
+//            permissions.size shouldBe 1
+//        }
     }
 }
