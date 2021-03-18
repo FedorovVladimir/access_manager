@@ -32,9 +32,9 @@
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-2">
+        <div class="col-1">
         </div>
-        <div class="col-8">
+        <div class="col-10">
 
             <h1>Разрешения</h1>
 
@@ -51,25 +51,27 @@
                 <tr th:each="role, iStat: ${ data }">
                     <td th:text="${ role.name }"></td>
                     <td th:each="permission: ${ role.permissions }">
-                        <p th:if="${ permission.has }">
-                            <svg class="bi bi-check2" fill="currentColor" height="16" viewBox="0 0 16 16"
-                                 width="16" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                            </svg>
-                        </p>
-                        <p th:if="${ not permission.has }">
-                            <svg class="bi bi-dash" fill="currentColor" height="16" viewBox="0 0 16 16"
-                                 width="16" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                            </svg>
-                        </p>
+                        <button type="button" class="btn btn-light" th:onclick="'change(' + ${ permission.uuid } + ')'">
+                            <span th:if="${ permission.has }">
+                                <svg class="bi bi-check2" fill="currentColor" height="20" viewBox="0 0 16 16"
+                                     width="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </span>
+                            <span th:if="${ not permission.has }">
+                                <svg class="bi bi-dash" fill="currentColor" height="20" viewBox="0 0 16 16"
+                                     width="20" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                </svg>
+                            </span>
+                        </button>
                     </td>
                 </tr>
                 </tbody>
             </table>
 
         </div>
-        <div class="col-2">
+        <div class="col-1">
         </div>
     </div>
 </div>
@@ -80,35 +82,13 @@
     }
 
     function check(v) {
-        return v !== ""
+        return v !== "";
     }
 
-    id("send").addEventListener("click", function () {
-        var code = id("code").value
-        if (!check(code)) {
-            return
-        }
-        var name = id("name").value
-        if (!check(name)) {
-            return
-        }
-        let data = {
-            code: code,
-            name: name
-        }
-        var json = JSON.stringify(data)
-
-        fetch("http://localhost:8080/functions", {
-            method: "POST",
-            body: json,
-            headers: {"content-type": "application/json"}
-        }).then((response) => {
-            if (response.status !== 200) {
-                document.location.reload(true);
-            }
-        })
-    });
-
+    function change(uuid) {
+        console.log(uuid);
+        return;
+    }
 </script>
 
 </body>
