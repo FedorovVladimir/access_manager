@@ -47,4 +47,10 @@ class AccessManagerService {
         permissionRepository.saveAll(roles.map { Permission(UUID.randomUUID(), it, f) })
         return f
     }
+
+    fun changePermission(uuid: UUID) {
+        val p = permissionRepository.findByUuid(uuid)
+        p.has = !p.has
+        permissionRepository.update(p)
+    }
 }

@@ -69,6 +69,14 @@ class AccessManagerTest : StringSpec() {
             permissions.shouldNotBeNull()
             permissions.size shouldBe 1
         }
+
+        "Даем права роли 'Администратор' на функцию 'Создание заявки'" {
+            var role = accessManagerClient.getRoles()[0]
+            val uuid = role.permissions!![0].uuid
+            accessManagerClient.changePermission(uuid)
+            role = accessManagerClient.getRoles()[0]
+            role.permissions!![0].has shouldBe true
+        }
     }
 
     override fun afterSpec(spec: Spec) {

@@ -9,6 +9,7 @@ import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
 import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.AccessManagerService
+import java.util.*
 import javax.inject.Inject
 
 @Controller
@@ -35,5 +36,11 @@ class AccessManagerController {
     @Post("/functions")
     fun postAccesses(@Body function: Function): HttpResponse<Function> {
         return HttpResponse.created(accessManagerService.addFunction(function))
+    }
+
+
+    @Post("/permissions/{uuid}/change")
+    fun changePermission(uuid: UUID) {
+        accessManagerService.changePermission(uuid)
     }
 }

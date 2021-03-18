@@ -1,5 +1,7 @@
 package tech.crabs.access_manager.services
 
+import io.micronaut.data.annotation.Join
+import io.micronaut.data.annotation.repeatable.JoinSpecifications
 import io.micronaut.data.jdbc.annotation.JdbcRepository
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.repository.CrudRepository
@@ -11,4 +13,10 @@ import java.util.*
 interface PermissionRepository : CrudRepository<Permission, UUID> {
 
     fun findByRole(role: Role): List<Permission>
+
+    @JoinSpecifications(
+        Join(value = "role"),
+        Join(value = "function")
+    )
+    fun findByUuid(uuid: UUID): Permission
 }

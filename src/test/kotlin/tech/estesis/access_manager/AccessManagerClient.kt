@@ -7,6 +7,7 @@ import io.micronaut.http.client.annotation.Client
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
 import tech.crabs.access_manager.entities.RoleInfo
+import java.util.*
 
 @Client("/")
 interface AccessManagerClient {
@@ -22,4 +23,7 @@ interface AccessManagerClient {
 
     @Post("/functions")
     fun addAccess(@Body function: Function)
+
+    @Post("/permissions/{uuid}/change")
+    fun changePermission(uuid: UUID)
 }

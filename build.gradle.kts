@@ -47,7 +47,7 @@ dependencies {
 
 
 application {
-    mainClass.set("tech.estesis.ApplicationKt")
+    mainClass.set("tech.estesis.access_manager.ApplicationKt")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")

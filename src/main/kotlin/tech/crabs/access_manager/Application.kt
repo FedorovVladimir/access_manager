@@ -1,4 +1,4 @@
-package tech.crabs
+package tech.crabs.access_manager
 
 import io.micronaut.runtime.Micronaut.build
 
