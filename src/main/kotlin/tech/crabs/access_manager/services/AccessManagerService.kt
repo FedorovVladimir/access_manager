@@ -2,6 +2,7 @@ package tech.crabs.access_manager.services
 
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
+import tech.crabs.access_manager.entities.RoleInfo
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -14,8 +15,14 @@ class AccessManagerService {
     @Inject
     private lateinit var functionRepository: FunctionRepository
 
-    fun getRoles(): List<Role> {
-        return roleRepository.findAll().toList()
+    fun getRoles(): List<RoleInfo> {
+        return roleRepository.findAll().map {
+            RoleInfo(
+                it.code!!,
+                it.name!!,
+                emptyList()
+            )
+        }
     }
 
     fun addRole(role: Role): Role {

@@ -5,4 +5,6 @@ data class RoleInfo(
     var code: String,
 
     var name: String,
+
+    var permissions: List<Permission>?
 )
