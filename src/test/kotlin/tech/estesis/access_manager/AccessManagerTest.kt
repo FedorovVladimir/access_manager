@@ -1,11 +1,13 @@
 package tech.estesis.access_manager
 
+import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
+import tech.crabs.access_manager.services.FunctionRepository
+import tech.crabs.access_manager.services.RoleRepository
 import javax.inject.Inject
 
 @MicronautTest
@@ -13,6 +15,12 @@ class AccessManagerTest : StringSpec() {
 
     @Inject
     private lateinit var accessManagerClient: AccessManagerClient
+
+    @Inject
+    private lateinit var roleRepository: RoleRepository
+
+    @Inject
+    private lateinit var functionRepository: FunctionRepository
 
     init {
         "В новой системе ролей нет" {
@@ -56,5 +64,10 @@ class AccessManagerTest : StringSpec() {
 //            permissions.shouldNotBeNull()
 //            permissions.size shouldBe 1
 //        }
+    }
+
+    override fun afterSpec(spec: Spec) {
+        roleRepository.deleteAll()
+        functionRepository.deleteAll()
     }
 }

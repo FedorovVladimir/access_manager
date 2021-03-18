@@ -1,39 +1,32 @@
 package tech.crabs.access_manager.services
 
 import tech.crabs.access_manager.entities.Function
-import tech.crabs.access_manager.entities.Permission
 import tech.crabs.access_manager.entities.Role
-import tech.crabs.access_manager.entities.RoleInfo
-import java.util.*
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class AccessManagerService {
 
-    private var roles = LinkedList<Role>()
+    @Inject
+    private lateinit var roleRepository: RoleRepository
 
-    private var functions = LinkedList<Function>()
+    @Inject
+    private lateinit var functionRepository: FunctionRepository
 
-    fun getRoles(): List<RoleInfo> {
-        return roles.map { RoleInfo(it.code!!, it.name!!) }
+    fun getRoles(): List<Role> {
+        return roleRepository.findAll().toList()
     }
 
-    fun addRole(role: Role): RoleInfo {
-        val permissions = LinkedList<Permission>()
-        functions.forEach { permissions.add(Permission(role, it)) }
-        roles.add(role)
-        return RoleInfo(
-            role.code!!,
-            role.name!!
-        )
+    fun addRole(role: Role): Role {
+        return roleRepository.save(role)
     }
 
     fun getFunctions(): List<Function> {
-        return functions
+        return functionRepository.findAll().toList()
     }
 
     fun addFunction(function: Function): Function {
-        functions.add(function)
-        return function
+        return functionRepository.save(function)
     }
 }

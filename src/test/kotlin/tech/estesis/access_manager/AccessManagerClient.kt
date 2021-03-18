@@ -21,5 +21,5 @@ interface AccessManagerClient {
     fun getAccesses(): List<Function>
 
     @Post("/functions")
-    fun addAccess(function: Function)
+    fun addAccess(@Body function: Function)
 }

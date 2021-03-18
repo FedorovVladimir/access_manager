@@ -4,5 +4,5 @@ class ResponsePermission(
 
     var functions: List<Function>,
 
-    var data: List<RoleInfo>
+    var data: List<Role>
 )
