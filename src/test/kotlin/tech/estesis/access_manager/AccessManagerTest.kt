@@ -8,6 +8,7 @@ import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
 import tech.crabs.access_manager.services.FunctionRepository
+import tech.crabs.access_manager.services.PermissionRepository
 import tech.crabs.access_manager.services.RoleRepository
 import javax.inject.Inject
 
@@ -22,6 +23,9 @@ class AccessManagerTest : StringSpec() {
 
     @Inject
     private lateinit var functionRepository: FunctionRepository
+
+    @Inject
+    private lateinit var permissionRepository: PermissionRepository
 
     init {
         "В новой системе ролей нет" {
@@ -55,10 +59,10 @@ class AccessManagerTest : StringSpec() {
             permissions.size shouldBe 1
         }
 
-//        "Добавляем роль 'Оператор'" {
-//            accessManagerClient.addRole(Role("OPERATOR", "Оператор"))
-//        }
-//
+        "Добавляем роль 'Оператор'" {
+            accessManagerClient.addRole(Role("OPERATOR", "Оператор"))
+        }
+
 //        "У роли 'Оператор' есть одно право" {
 //            val role = accessManagerClient.getRoles()[1]
 //            val permissions = role.permissions
@@ -68,6 +72,7 @@ class AccessManagerTest : StringSpec() {
     }
 
     override fun afterSpec(spec: Spec) {
+        permissionRepository.deleteAll()
         roleRepository.deleteAll()
         functionRepository.deleteAll()
     }

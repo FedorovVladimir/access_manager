@@ -1,19 +1,20 @@
 package tech.crabs.access_manager.entities
 
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.OneToMany
-import javax.persistence.Table
+import java.util.*
+import javax.persistence.*
 
-//@Entity
-//@Table(name = "permissions")
+@Entity
+@Table(name = "permissions")
 data class Permission(
 
-//    @OneToMany
-    var role: Role,
+    @Id
+    var uuid: UUID,
 
-//    @OneToMany
-    var function: Function,
+    @ManyToOne
+    var role: Role?,
+
+    @ManyToOne
+    var function: Function?,
 
     var has: Boolean = false
 )
