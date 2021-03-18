@@ -25,7 +25,7 @@ class AccessManagerService {
             RoleInfo(
                 it.code!!,
                 it.name!!,
-                permissionRepository.findByRole(it)
+                permissionRepository.findByRoleOrderByFunction(it)
             )
         }
     }
@@ -38,7 +38,7 @@ class AccessManagerService {
     }
 
     fun getFunctions(): List<Function> {
-        return functionRepository.findAll().toList()
+        return functionRepository.findAllOrderByCode()
     }
 
     fun addFunction(function: Function): Function {
