@@ -63,12 +63,12 @@ class AccessManagerTest : StringSpec() {
             accessManagerClient.addRole(Role("OPERATOR", "Оператор"))
         }
 
-//        "У роли 'Оператор' есть одно право" {
-//            val role = accessManagerClient.getRoles()[1]
-//            val permissions = role.permissions
-//            permissions.shouldNotBeNull()
-//            permissions.size shouldBe 1
-//        }
+        "У роли 'Оператор' есть одно право" {
+            val role = accessManagerClient.getRoles()[1]
+            val permissions = role.permissions
+            permissions.shouldNotBeNull()
+            permissions.size shouldBe 1
+        }
     }
 
     override fun afterSpec(spec: Spec) {

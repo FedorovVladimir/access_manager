@@ -31,7 +31,10 @@ class AccessManagerService {
     }
 
     fun addRole(role: Role): Role {
-        return roleRepository.save(role)
+        val r =  roleRepository.save(role)
+        val functions = functionRepository.findAll()
+        permissionRepository.saveAll(functions.map { Permission(UUID.randomUUID(), r, it) })
+        return r
     }
 
     fun getFunctions(): List<Function> {
