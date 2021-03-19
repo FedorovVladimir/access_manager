@@ -7,6 +7,7 @@ import io.micronaut.views.View
 import tech.crabs.access_manager.entities.ResponseFunction
 import tech.crabs.access_manager.entities.ResponsePermission
 import tech.crabs.access_manager.entities.ResponseRole
+import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.AccessManagerService
 import javax.inject.Inject
 
@@ -26,6 +27,12 @@ class ViewsController {
     @Get("/page_roles")
     fun roles(): HttpResponse<ResponseRole> {
         return HttpResponse.ok(ResponseRole(accessManagerService.getRoles()))
+    }
+
+    @View("role")
+    @Get("/page_role/{code}")
+    fun roles(code: String): HttpResponse<RoleInfo> {
+        return HttpResponse.ok(accessManagerService.getRole(code))
     }
 
     @View("functions")

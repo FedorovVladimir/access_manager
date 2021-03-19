@@ -12,6 +12,10 @@ import java.util.*
 @JdbcRepository(dialect = Dialect.POSTGRES)
 interface PermissionRepository : CrudRepository<Permission, UUID> {
 
+    @JoinSpecifications(
+        Join(value = "role"),
+        Join(value = "function")
+    )
     fun findByRoleOrderByFunction(role: Role): List<Permission>
 
     @JoinSpecifications(

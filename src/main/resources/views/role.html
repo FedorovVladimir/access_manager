@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Роль</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">access_manager</a>
+        <div class="navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page_roles">Роли</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page_functions">Функции</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/page_permissions">Разрешения</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-2">
+        </div>
+        <div class="col-8">
+
+            <h1 th:text="${ name }"></h1>
+
+            <h3 class="mt-5 mb-3">Разрешения</h3>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Функция</th>
+                    <th scope="col">Права</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="permission, pStat: ${ permissions }">
+                    <td th:text="${ permission.function.name }"></td>
+                    <td>
+                        <button class="btn btn-light" th:data-uuid="${ permission.uuid }"
+                                th:id="'b_' + ${ pStat.index }"
+                                th:onclick="'change(' + 'b_' + ${ pStat.index } + ')'"
+                                type="button">
+                            <span class="text-success" th:if="${ permission.has }">
+                                <svg class="bi bi-check2" fill="currentColor" height="22" viewBox="0 0 20 20"
+                                     width="22" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </span>
+                            <span th:if="${ not permission.has }">
+                                <svg class="bi bi-dash" fill="currentColor" height="22" viewBox="0 0 16 16"
+                                     width="22" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-2">
+        </div>
+    </div>
+</div>
+
+<script>
+    function change(button) {
+        var uuid = button.getAttribute("data-uuid");
+
+        fetch("http://localhost:8080/permissions/" + uuid + "/change", {
+            method: "POST",
+            headers:{"content-type": "application/json"}
+        }).then((response) => {
+            if (response.status === 200) {
+                document.location.reload(true);
+            }
+        })
+    }
+
+</script>
+
+</body>
+</html>
