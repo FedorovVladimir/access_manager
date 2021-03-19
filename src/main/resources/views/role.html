@@ -43,12 +43,14 @@
             <table class="table">
                 <thead>
                 <tr>
+                    <th scope="col">№</th>
                     <th scope="col">Функция</th>
                     <th scope="col">Права</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="permission, pStat: ${ permissions }">
+                    <td th:text="${ pStat.index + 1 }"></td>
                     <td th:text="${ permission.function.name }"></td>
                     <td>
                         <button class="btn btn-light" th:data-uuid="${ permission.uuid }"
