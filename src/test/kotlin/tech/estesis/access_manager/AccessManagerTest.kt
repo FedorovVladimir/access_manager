@@ -77,6 +77,10 @@ class AccessManagerTest : StringSpec() {
             role = accessManagerClient.getRoles()[0]
             role.permissions!![0].has shouldBe true
         }
+
+        "Получаем информаця для роли 'Администратор'" {
+            accessManagerClient.getRole("ADMIN")
+        }
     }
 
     override fun afterSpec(spec: Spec) {

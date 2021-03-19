@@ -21,17 +21,11 @@ class AccessManagerService {
     private lateinit var permissionRepository: PermissionRepository
 
     fun getRoles(): List<RoleInfo> {
-        return roleRepository.findAll().map {
-            RoleInfo(
-                it.code!!,
-                it.name!!,
-                permissionRepository.findByRoleOrderByFunction(it)
-            )
-        }
+        return roleRepository.findAll().map { convert(it) }
     }
 
     fun addRole(role: Role): Role {
-        val r =  roleRepository.save(role)
+        val r = roleRepository.save(role)
         val functions = functionRepository.findAll()
         permissionRepository.saveAll(functions.map { Permission(UUID.randomUUID(), r, it) })
         return r
@@ -52,5 +46,17 @@ class AccessManagerService {
         val p = permissionRepository.findByUuid(uuid)
         p.has = !p.has
         permissionRepository.update(p)
+    }
+
+    fun getRole(code: String): RoleInfo {
+        return convert(roleRepository.findByCode(code))
+    }
+
+    private fun convert(o: Role): RoleInfo {
+        return RoleInfo(
+            o.code!!,
+            o.name!!,
+            permissionRepository.findByRoleOrderByFunction(o)
+        )
     }
 }

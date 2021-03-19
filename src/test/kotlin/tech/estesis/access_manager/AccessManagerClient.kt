@@ -26,4 +26,7 @@ interface AccessManagerClient {
 
     @Post("/permissions/{uuid}/change")
     fun changePermission(uuid: UUID)
+
+    @Get("/roles/{code}")
+    fun getRole(code: String): RoleInfo
 }

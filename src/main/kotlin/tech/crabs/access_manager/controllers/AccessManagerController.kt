@@ -23,6 +23,11 @@ class AccessManagerController {
         return accessManagerService.getRoles()
     }
 
+    @Get("/roles/{code}")
+    fun getRole(code:String): RoleInfo {
+        return accessManagerService.getRole(code)
+    }
+
     @Post("/roles")
     fun postRoles(@Body role: Role): HttpResponse<Role> {
         return HttpResponse.created(accessManagerService.addRole(role))
