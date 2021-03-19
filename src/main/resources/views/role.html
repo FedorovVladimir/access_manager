@@ -36,7 +36,7 @@
         </div>
         <div class="col-8">
 
-            <h1 th:text="${ name }"></h1>
+            <h1 th:text="${ name } + ' (' + ${ code } + ')'"></h1>
 
             <h3 class="mt-5 mb-3">Разрешения</h3>
 
@@ -51,7 +51,7 @@
                 <tbody>
                 <tr th:each="permission, pStat: ${ permissions }">
                     <td th:text="${ pStat.index + 1 }"></td>
-                    <td th:text="${ permission.function.name }"></td>
+                    <td th:text="${ permission.function.name } + ' (' + ${ permission.function.code } + ')'"></td>
                     <td>
                         <button class="btn btn-light" th:data-uuid="${ permission.uuid }"
                                 th:id="'b_' + ${ pStat.index }"
