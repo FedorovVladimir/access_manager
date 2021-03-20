@@ -8,6 +8,12 @@
 </head>
 <body>
 
+<style>
+    .check_btn {
+        padding: 0 10px 0 12px;
+    }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand">access_manager</a>
@@ -53,19 +59,19 @@
                     <td th:text="${ pStat.index + 1 }"></td>
                     <td th:text="${ permission.function.name } + ' (' + ${ permission.function.code } + ')'"></td>
                     <td>
-                        <button class="btn btn-light" th:data-uuid="${ permission.uuid }"
+                        <button class="btn btn-light check_btn" th:data-uuid="${ permission.uuid }"
                                 th:id="'b_' + ${ pStat.index }"
                                 th:onclick="'change(' + 'b_' + ${ pStat.index } + ')'"
                                 type="button">
                             <span class="text-success" th:if="${ permission.has }">
-                                <svg class="bi bi-check2" fill="currentColor" height="22" viewBox="0 0 20 20"
-                                     width="22" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="bi bi-check2" fill="currentColor" height="20" viewBox="0 0 20 20"
+                                     width="20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                                 </svg>
                             </span>
                             <span th:if="${ not permission.has }">
-                                <svg class="bi bi-dash" fill="currentColor" height="22" viewBox="0 0 16 16"
-                                     width="22" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="bi bi-dash" fill="currentColor" height="20" viewBox="0 0 20 20"
+                                     width="20" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                 </svg>
                             </span>
