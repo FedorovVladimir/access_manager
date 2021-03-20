@@ -4,6 +4,7 @@ import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.views.View
+import io.swagger.v3.oas.annotations.Hidden
 import tech.crabs.access_manager.entities.ResponseFunction
 import tech.crabs.access_manager.entities.ResponsePermission
 import tech.crabs.access_manager.entities.ResponseRole
@@ -11,6 +12,7 @@ import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.AccessManagerService
 import javax.inject.Inject
 
+@Hidden
 @Controller("/")
 class ViewsController {
 

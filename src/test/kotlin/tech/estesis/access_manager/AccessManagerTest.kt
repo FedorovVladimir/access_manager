@@ -29,11 +29,11 @@ class AccessManagerTest : StringSpec() {
 
     init {
         "В новой системе ролей нет" {
-            accessManagerClient.getRoles().size shouldBe 0
+            accessManagerClient.getAllRoles().size shouldBe 0
         }
 
         "В новой системе функций нет" {
-            accessManagerClient.getFunctions().size shouldBe 0
+            accessManagerClient.getAllFunctions().size shouldBe 0
         }
 
         "Добавляем роль 'Администратор'" {
@@ -41,7 +41,7 @@ class AccessManagerTest : StringSpec() {
         }
 
         "В системе есть одна роль" {
-            accessManagerClient.getRoles().size shouldBe 1
+            accessManagerClient.getAllRoles().size shouldBe 1
         }
 
         "Добавляем функцию 'Создание задачи'" {
@@ -49,11 +49,11 @@ class AccessManagerTest : StringSpec() {
         }
 
         "В системе есть одна функция" {
-            accessManagerClient.getFunctions().size shouldBe 1
+            accessManagerClient.getAllFunctions().size shouldBe 1
         }
 
         "У роли 'Администратор' есть одно право" {
-            val role = accessManagerClient.getRoles()[0]
+            val role = accessManagerClient.getAllRoles()[0]
             val permissions = role.permissions
             permissions.shouldNotBeNull()
             permissions.size shouldBe 1
@@ -64,22 +64,22 @@ class AccessManagerTest : StringSpec() {
         }
 
         "У роли 'Оператор' есть одно право" {
-            val role = accessManagerClient.getRoles()[1]
+            val role = accessManagerClient.getAllRoles()[1]
             val permissions = role.permissions
             permissions.shouldNotBeNull()
             permissions.size shouldBe 1
         }
 
         "Даем права роли 'Администратор' на функцию 'Создание заявки'" {
-            var role = accessManagerClient.getRoles()[0]
+            var role = accessManagerClient.getAllRoles()[0]
             val uuid = role.permissions!![0].uuid
-            accessManagerClient.changePermission(uuid)
-            role = accessManagerClient.getRoles()[0]
+            accessManagerClient.changePermissionByUuid(uuid)
+            role = accessManagerClient.getAllRoles()[0]
             role.permissions!![0].has shouldBe true
         }
 
         "Получаем информаця для роли 'Администратор'" {
-            accessManagerClient.getRole("ADMIN")
+            accessManagerClient.getRoleByCode("ADMIN")
         }
 
         "Удаляем роль 'Администратор'" {
@@ -87,15 +87,15 @@ class AccessManagerTest : StringSpec() {
         }
 
         "В новой системе осталась одна роль" {
-            accessManagerClient.getRoles().size shouldBe 1
+            accessManagerClient.getAllRoles().size shouldBe 1
         }
 
         "Удаляем функцию 'Создание заявки'" {
-            accessManagerClient.deleteFunction("create_task")
+            accessManagerClient.deleteFunctionByCode("create_task")
         }
 
         "В системе нет функций" {
-            accessManagerClient.getFunctions().size shouldBe 0
+            accessManagerClient.getAllFunctions().size shouldBe 0
         }
     }
 

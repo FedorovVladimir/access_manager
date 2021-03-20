@@ -14,26 +14,26 @@ import java.util.*
 interface AccessManagerClient {
 
     @Get("/roles")
-    fun getRoles(): List<RoleInfo>
+    fun getAllRoles(): List<RoleInfo>
+
+    @Get("/roles/{code}")
+    fun getRoleByCode(code: String): RoleInfo
 
     @Post("/roles")
     fun addRole(@Body role: Role)
-
-    @Get("/roles/{code}")
-    fun getRole(code: String): RoleInfo
 
     @Delete("/roles/{code}")
     fun deleteRole(code: String)
 
     @Get("/functions")
-    fun getFunctions(): List<Function>
+    fun getAllFunctions(): List<Function>
 
     @Post("/functions")
     fun addFunction(@Body function: Function)
 
     @Delete("/functions/{code}")
-    fun deleteFunction(code: String)
+    fun deleteFunctionByCode(code: String)
 
     @Post("/permissions/{uuid}/change")
-    fun changePermission(uuid: UUID)
+    fun changePermissionByUuid(uuid: UUID)
 }

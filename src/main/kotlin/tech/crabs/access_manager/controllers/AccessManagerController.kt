@@ -21,37 +21,37 @@ class AccessManagerController {
     }
 
     @Get("/roles/{code}")
-    fun getRole(code: String): RoleInfo {
+    fun getRoleByCode(code: String): RoleInfo {
         return accessManagerService.getRole(code)
     }
 
-    @Delete("/roles/{code}")
-    fun deleteRole(code: String) {
-        accessManagerService.deleteRole(code)
-    }
-
     @Post("/roles")
-    fun postRoles(@Body role: Role): HttpResponse<Role> {
+    fun addRole(@Body role: Role): HttpResponse<Role> {
         return HttpResponse.created(accessManagerService.addRole(role))
     }
 
+    @Delete("/roles/{code}")
+    fun deleteRoleByCode(code: String) {
+        accessManagerService.deleteRole(code)
+    }
+
     @Get("/functions")
-    fun getAllAccesses(): List<Function> {
+    fun getAllFunctions(): List<Function> {
         return accessManagerService.getFunctions()
     }
 
     @Post("/functions")
-    fun postAccesses(@Body function: Function): HttpResponse<Function> {
+    fun addFunction(@Body function: Function): HttpResponse<Function> {
         return HttpResponse.created(accessManagerService.addFunction(function))
     }
 
     @Delete("/functions/{code}")
-    fun deleteFunction(code: String) {
+    fun deleteFunctionByCode(code: String) {
         accessManagerService.deleteFunction(code)
     }
 
     @Post("/permissions/{uuid}/change")
-    fun changePermission(uuid: UUID) {
+    fun changePermissionByUuid(uuid: UUID) {
         accessManagerService.changePermission(uuid)
     }
 }

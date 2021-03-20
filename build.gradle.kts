@@ -43,6 +43,9 @@ dependencies {
     runtimeOnly("org.postgresql:postgresql")
 
     implementation("io.micronaut.flyway:micronaut-flyway")
+
+    kapt("io.micronaut.openapi:micronaut-openapi:2.3.1")
+    implementation("io.swagger.core.v3:swagger-annotations")
 }
 
 
@@ -63,5 +66,11 @@ tasks {
         kotlinOptions {
             jvmTarget = "11"
         }
+    }
+}
+
+kapt {
+    arguments {
+        arg("micronaut.openapi.views.spec", "redoc.enabled=true")
     }
 }

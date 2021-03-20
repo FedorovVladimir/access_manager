@@ -9,7 +9,7 @@ import javax.persistence.Table
 data class Role(
 
     @Id
-    var code: String? = null,
+    var code: String,
 
-    var name: String? = null,
+    var name: String,
 )
