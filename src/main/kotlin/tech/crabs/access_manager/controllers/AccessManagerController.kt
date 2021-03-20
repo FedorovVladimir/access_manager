@@ -21,12 +21,12 @@ class AccessManagerController {
     }
 
     @Get("/roles/{code}")
-    fun getRole(code:String): RoleInfo {
+    fun getRole(code: String): RoleInfo {
         return accessManagerService.getRole(code)
     }
 
     @Delete("/roles/{code}")
-    fun deleteRole(code:String) {
+    fun deleteRole(code: String) {
         accessManagerService.deleteRole(code)
     }
 
@@ -46,7 +46,7 @@ class AccessManagerController {
     }
 
     @Delete("/functions/{code}")
-    fun deleteFunction(code:String) {
+    fun deleteFunction(code: String) {
         accessManagerService.deleteFunction(code)
     }
 
