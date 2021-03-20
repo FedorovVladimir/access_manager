@@ -9,4 +9,6 @@ import tech.crabs.access_manager.entities.Function
 interface FunctionRepository : CrudRepository<Function, Long> {
 
     fun findAllOrderByCode(): List<Function>
+
+    fun deleteByCode(code: String)
 }

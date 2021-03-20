@@ -33,7 +33,7 @@ class AccessManagerTest : StringSpec() {
         }
 
         "В новой системе функций нет" {
-            accessManagerClient.getAccesses().size shouldBe 0
+            accessManagerClient.getFunctions().size shouldBe 0
         }
 
         "Добавляем роль 'Администратор'" {
@@ -45,11 +45,11 @@ class AccessManagerTest : StringSpec() {
         }
 
         "Добавляем функцию 'Создание задачи'" {
-            accessManagerClient.addAccess(Function("create_task", "Создание задачи"))
+            accessManagerClient.addFunction(Function("create_task", "Создание задачи"))
         }
 
         "В системе есть одна функция" {
-            accessManagerClient.getAccesses().size shouldBe 1
+            accessManagerClient.getFunctions().size shouldBe 1
         }
 
         "У роли 'Администратор' есть одно право" {
@@ -88,6 +88,14 @@ class AccessManagerTest : StringSpec() {
 
         "В новой системе осталась одна роль" {
             accessManagerClient.getRoles().size shouldBe 1
+        }
+
+        "Удаляем функцию 'Создание заявки'" {
+            accessManagerClient.deleteFunction("create_task")
+        }
+
+        "В системе нет функций" {
+            accessManagerClient.getFunctions().size shouldBe 0
         }
     }
 

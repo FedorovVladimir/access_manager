@@ -45,6 +45,11 @@ class AccessManagerController {
         return HttpResponse.created(accessManagerService.addFunction(function))
     }
 
+    @Delete("/functions/{code}")
+    fun deleteFunction(code:String) {
+        accessManagerService.deleteFunction(code)
+    }
+
     @Post("/permissions/{uuid}/change")
     fun changePermission(uuid: UUID) {
         accessManagerService.changePermission(uuid)

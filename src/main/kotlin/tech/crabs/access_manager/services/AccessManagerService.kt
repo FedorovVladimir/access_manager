@@ -63,4 +63,8 @@ class AccessManagerService {
     fun deleteRole(code: String) {
         roleRepository.deleteByCode(code)
     }
+
+    fun deleteFunction(code: String) {
+        functionRepository.deleteByCode(code)
+    }
 }
