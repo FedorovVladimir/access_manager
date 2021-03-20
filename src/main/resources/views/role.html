@@ -12,6 +12,10 @@
     .check_btn {
         padding: 0 10px 0 12px;
     }
+
+
+
+
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -51,18 +55,17 @@
                 <tr>
                     <th scope="col">№</th>
                     <th scope="col">Функция</th>
-                    <th scope="col">Права</th>
+                    <th scope="col" style="text-align: center"1>Права</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="permission, pStat: ${ permissions }">
                     <td th:text="${ pStat.index + 1 }"></td>
                     <td th:text="${ permission.function.name } + ' (' + ${ permission.function.code } + ')'"></td>
-                    <td>
-                        <button class="btn btn-light check_btn" th:data-uuid="${ permission.uuid }"
-                                th:id="'b_' + ${ pStat.index }"
-                                th:onclick="'change(' + 'b_' + ${ pStat.index } + ')'"
-                                type="button">
+                    <td style="text-align: center">
+                        <span style="cursor: pointer" th:data-uuid="${ permission.uuid }"
+                              th:id="'b_' + ${ pStat.index }"
+                              th:onclick="'change(' + 'b_' + ${ pStat.index } + ')'">
                             <span class="text-success" th:if="${ permission.has }">
                                 <svg class="bi bi-check2" fill="currentColor" height="20" viewBox="0 0 20 20"
                                      width="20" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +78,7 @@
                                     <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                 </svg>
                             </span>
-                        </button>
+                        </span>
                     </td>
                 </tr>
                 </tbody>
@@ -100,6 +103,10 @@
             }
         })
     }
+
+
+
+
 
 </script>
 

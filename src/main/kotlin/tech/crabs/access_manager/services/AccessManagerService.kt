@@ -21,7 +21,7 @@ class AccessManagerService {
     private lateinit var permissionRepository: PermissionRepository
 
     fun getRoles(): List<RoleInfo> {
-        return roleRepository.findAll().map { convert(it) }
+        return roleRepository.findAllOrderByCode().map { convert(it) }
     }
 
     fun addRole(role: Role): Role {
