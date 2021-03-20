@@ -1,10 +1,7 @@
 package tech.crabs.access_manager.controllers
 
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.*
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
 import tech.crabs.access_manager.entities.RoleInfo
@@ -28,6 +25,11 @@ class AccessManagerController {
         return accessManagerService.getRole(code)
     }
 
+    @Delete("/roles/{code}")
+    fun deleteRole(code:String) {
+        accessManagerService.deleteRole(code)
+    }
+
     @Post("/roles")
     fun postRoles(@Body role: Role): HttpResponse<Role> {
         return HttpResponse.created(accessManagerService.addRole(role))
@@ -42,7 +44,6 @@ class AccessManagerController {
     fun postAccesses(@Body function: Function): HttpResponse<Function> {
         return HttpResponse.created(accessManagerService.addFunction(function))
     }
-
 
     @Post("/permissions/{uuid}/change")
     fun changePermission(uuid: UUID) {

@@ -59,4 +59,8 @@ class AccessManagerService {
             permissionRepository.findByRoleOrderByFunction(o)
         )
     }
+
+    fun deleteRole(code: String) {
+        roleRepository.deleteByCode(code)
+    }
 }

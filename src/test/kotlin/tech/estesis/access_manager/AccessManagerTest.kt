@@ -81,6 +81,14 @@ class AccessManagerTest : StringSpec() {
         "Получаем информаця для роли 'Администратор'" {
             accessManagerClient.getRole("ADMIN")
         }
+
+        "Удаляем роль 'Администратор'" {
+            accessManagerClient.deleteRole("ADMIN")
+        }
+
+        "В новой системе осталась одна роль" {
+            accessManagerClient.getRoles().size shouldBe 1
+        }
     }
 
     override fun afterSpec(spec: Spec) {

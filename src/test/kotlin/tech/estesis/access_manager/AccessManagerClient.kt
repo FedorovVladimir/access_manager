@@ -1,6 +1,7 @@
 package tech.estesis.access_manager
 
 import io.micronaut.http.annotation.Body
+import io.micronaut.http.annotation.Delete
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
@@ -29,4 +30,7 @@ interface AccessManagerClient {
 
     @Get("/roles/{code}")
     fun getRole(code: String): RoleInfo
+
+    @Delete("/roles/{code}")
+    fun deleteRole(code: String)
 }

@@ -9,4 +9,6 @@ import tech.crabs.access_manager.entities.Role
 interface RoleRepository : CrudRepository<Role, Long> {
 
     fun findByCode(code: String): Role
+
+    fun deleteByCode(code: String)
 }
