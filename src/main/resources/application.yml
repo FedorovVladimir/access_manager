@@ -33,3 +33,7 @@ flyway:
   datasources:
     default:
       enabled: true
+
+auth:
+  login: "${ADMIN_LOGIN:`admin`}"
+  password: "${ADMIN_PASSWORD:`admin`}"

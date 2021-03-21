@@ -1,9 +1,6 @@
 package tech.estesis.access_manager
 
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Delete
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
@@ -14,26 +11,26 @@ import java.util.*
 interface AccessManagerClient {
 
     @Get("/roles")
-    fun getAllRoles(): List<RoleInfo>
+    fun getAllRoles(@Header authorization: String): List<RoleInfo>
 
     @Get("/roles/{code}")
-    fun getRoleByCode(code: String): RoleInfo
+    fun getRoleByCode(@Header authorization: String, code: String): RoleInfo
 
     @Post("/roles")
-    fun addRole(@Body role: Role)
+    fun addRole(@Header authorization: String, @Body role: Role)
 
     @Delete("/roles/{code}")
-    fun deleteRole(code: String)
+    fun deleteRole(@Header authorization: String, code: String)
 
     @Get("/functions")
-    fun getAllFunctions(): List<Function>
+    fun getAllFunctions(@Header authorization: String): List<Function>
 
     @Post("/functions")
-    fun addFunction(@Body function: Function)
+    fun addFunction(@Header authorization: String, @Body function: Function)
 
     @Delete("/functions/{code}")
-    fun deleteFunctionByCode(code: String)
+    fun deleteFunctionByCode(@Header authorization: String, code: String)
 
     @Post("/permissions/{uuid}/change")
-    fun changePermissionByUuid(uuid: UUID)
+    fun changePermissionByUuid(@Header authorization: String, uuid: UUID)
 }

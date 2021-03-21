@@ -2,6 +2,8 @@ package tech.crabs.access_manager.controllers
 
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.*
+import io.micronaut.security.annotation.Secured
+import io.micronaut.security.rules.SecurityRule
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
 import tech.crabs.access_manager.entities.RoleInfo
@@ -10,6 +12,7 @@ import java.util.*
 import javax.inject.Inject
 
 @Controller
+@Secured(SecurityRule.IS_AUTHENTICATED)
 class AccessManagerController {
 
     @Inject
