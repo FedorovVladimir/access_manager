@@ -22,6 +22,12 @@ class ViewsController {
     @Inject
     private lateinit var accessManagerService: AccessManagerService
 
+    @View("login")
+    @Get("/page_login")
+    fun login(): HttpResponse<String> {
+        return HttpResponse.ok("ok")
+    }
+
     @View("index")
     @Get("/")
     fun index(): HttpResponse<ResponseRole> {

@@ -18,6 +18,11 @@ class AccessManagerController {
     @Inject
     private lateinit var accessManagerService: AccessManagerService
 
+    @Post("/login")
+    fun login(): String {
+        return "ok"
+    }
+
     @Get("/roles")
     fun getAllRoles(): List<RoleInfo> {
         return accessManagerService.getRoles()

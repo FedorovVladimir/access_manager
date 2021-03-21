@@ -10,6 +10,9 @@ import java.util.*
 @Client("/")
 interface AccessManagerClient {
 
+    @Post("/login")
+    fun login(@Header authorization: String)
+
     @Get("/roles")
     fun getAllRoles(@Header authorization: String): List<RoleInfo>
 

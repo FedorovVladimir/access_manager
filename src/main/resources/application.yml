@@ -10,6 +10,16 @@ micronaut:
       redoc:
         paths: classpath:META-INF/swagger/views/redoc
         mapping: /redoc/**
+  security:
+    intercept-url-map:
+      - pattern: /swagger/*
+        http-method: GET
+        access:
+          - isAnonymous()
+      - pattern: /redoc/*
+        http-method: GET
+        access:
+          - isAnonymous()
 
 datasources:
   default:

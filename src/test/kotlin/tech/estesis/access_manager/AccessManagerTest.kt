@@ -1,10 +1,12 @@
 package tech.estesis.access_manager
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.micronaut.context.annotation.Value
+import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.Role
@@ -37,9 +39,12 @@ class AccessManagerTest : StringSpec() {
 
     private lateinit var authHeader: String
 
+    private lateinit var authHeaderBad: String
+
     init {
         "Инициализация" {
             authHeader = "Basic " + Base64.getEncoder().encodeToString("$login:$password".toByteArray())
+            authHeaderBad = "Basic " + Base64.getEncoder().encodeToString("$login:${"bad_$password"}".toByteArray())
         }
 
         "В новой системе ролей нет" {
@@ -110,6 +115,11 @@ class AccessManagerTest : StringSpec() {
 
         "В системе нет функций" {
             accessManagerClient.getAllFunctions(authHeader).size shouldBe 0
+        }
+
+        "Проверка коректности логина и пароля" {
+            accessManagerClient.login(authHeader)
+            shouldThrow<HttpClientResponseException> { accessManagerClient.login(authHeaderBad) }
         }
     }
 
