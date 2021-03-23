@@ -1,0 +1,40 @@
+version: "3.3"
+
+networks:
+  net:
+
+volumes:
+  base_volume: { }
+
+services:
+
+  agro:
+    container_name: agro
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: java -Dcom.sun.management.jmxremote -Xmx256m -jar app.jar
+    environment:
+      BASE_URL: jdbc:postgresql://base:5432/postgres
+      BASE_PASSWORD: access_manager
+    networks:
+      - net
+    depends_on:
+      - base
+    ports:
+      - 8080:8080
+
+  base:
+    container_name: base
+    image: postgres:11.10
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: access_manager
+    networks:
+      - net
+    volumes:
+      - base_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432

@@ -53,7 +53,7 @@ dependencies {
 
 
 application {
-    mainClass.set("tech.estesis.access_manager.ApplicationKt")
+    mainClass.set("tech.crabs.access_manager.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
