@@ -1,13 +1,7 @@
-## Micronaut 2.4.0 Documentation
+# access_manager
 
-- [User Guide](https://docs.micronaut.io/2.4.0/guide/index.html)
-- [API Reference](https://docs.micronaut.io/2.4.0/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/2.4.0/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
+Вспомогательное ПО для контроля разрешений пользователей с различными ролями 
+на доступ к той или иной функциональности основного ПО.
 
----
-
-## Feature http-client documentation
-
-- [Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
+# docker-compose
+    sudo docker-compose up -d

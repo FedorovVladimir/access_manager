@@ -18,6 +18,8 @@ services:
     environment:
       BASE_URL: jdbc:postgresql://base:5432/postgres
       BASE_PASSWORD: access_manager
+      ADMIN_LOGIN: "admin"
+      ADMIN_PASSWORD: "admin"
     networks:
       - net
     depends_on:
