@@ -10,11 +10,8 @@ services:
 
   access_manager:
     container_name: access_manager
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: vo13crabs/aceess_manager:0.1
     restart: always
-    command: java -Dcom.sun.management.jmxremote -Xmx256m -jar app.jar
     environment:
       BASE_URL: jdbc:postgresql://base:5432/postgres
       BASE_PASSWORD: access_manager
