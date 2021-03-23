@@ -5,6 +5,7 @@ import io.micronaut.http.annotation.*
 import io.micronaut.security.annotation.Secured
 import io.micronaut.security.rules.SecurityRule
 import tech.crabs.access_manager.entities.Function
+import tech.crabs.access_manager.entities.ResponseData
 import tech.crabs.access_manager.entities.Role
 import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.AccessManagerService
@@ -19,8 +20,8 @@ class AccessManagerController {
     private lateinit var accessManagerService: AccessManagerService
 
     @Post("/login")
-    fun login(): String {
-        return "ok"
+    fun login(): ResponseData {
+        return ResponseData("ok")
     }
 
     @Get("/roles")
@@ -39,8 +40,9 @@ class AccessManagerController {
     }
 
     @Delete("/roles/{code}")
-    fun deleteRoleByCode(code: String) {
+    fun deleteRoleByCode(code: String): ResponseData {
         accessManagerService.deleteRole(code)
+        return ResponseData("ok")
     }
 
     @Get("/functions")
@@ -54,12 +56,14 @@ class AccessManagerController {
     }
 
     @Delete("/functions/{code}")
-    fun deleteFunctionByCode(code: String) {
+    fun deleteFunctionByCode(code: String): ResponseData {
         accessManagerService.deleteFunction(code)
+        return ResponseData("ok")
     }
 
     @Post("/permissions/{uuid}/change")
-    fun changePermissionByUuid(uuid: UUID) {
+    fun changePermissionByUuid(uuid: UUID): ResponseData {
         accessManagerService.changePermission(uuid)
+        return ResponseData("ok")
     }
 }

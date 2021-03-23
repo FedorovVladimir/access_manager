@@ -2,6 +2,10 @@ micronaut:
   application:
     name: access_manager
 
+  server:
+    cors:
+      enabled: true
+
   router:
     static-resources:
       swagger:
