@@ -76,10 +76,7 @@ class AccessManagerController {
 
     @Error
     fun badRequest(request: HttpRequest<Any?>, e: Throwable): HttpResponse<JsonError?>? {
-        val message = e.message
-            ?.removePrefix("addRole.role.code: ")
-            ?.removePrefix("addRole.role.name: ")
-        val error = JsonError(message).link(Link.SELF, Link.of(request.uri))
+        val error = JsonError(e.message).link(Link.SELF, Link.of(request.uri))
         return when (e) {
             is AuthorizationException -> HttpResponse.unauthorized()
             else -> HttpResponse.badRequest(error)

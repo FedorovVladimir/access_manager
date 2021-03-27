@@ -84,35 +84,17 @@ class AccessManagerTest : StringSpec() {
         }
 
         "Проверка при создании роли" {
-            var e: HttpClientResponseException = shouldThrow {
-                accessManagerClient.addRole(authHeader, RoleInfo(null, "Оператор"))
-            }
+            var e: HttpClientResponseException =
+                shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo(null, "Оператор")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e.message shouldBe "Поле код не может быть пустым"
-
-            e = shouldThrow {
-                accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", null))
-            }
+            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", null)) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e.message shouldBe "Поле название не может быть пустым"
-
-            e = shouldThrow {
-                accessManagerClient.addRole(authHeader, RoleInfo("", "Оператор"))
-            }
+            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("", "Оператор")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e.message shouldBe "Поле код не может быть пустым"
-
-            e = shouldThrow {
-                accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", ""))
-            }
+            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e.message shouldBe "Поле название не может быть пустым"
-
-            e = shouldThrow {
-                accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "Оператор"))
-            }
+            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "Оператор")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e.message shouldBe "Роль с кодом OPERATOR уже существует"
         }
 
         "У роли 'Оператор' есть одно право" {
