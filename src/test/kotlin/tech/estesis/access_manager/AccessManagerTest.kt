@@ -85,15 +85,17 @@ class AccessManagerTest : StringSpec() {
 
         "Проверка при создании роли" {
             var e: HttpClientResponseException =
-                shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo(null, "Оператор")) }
-            e.status shouldBe HttpStatus.BAD_REQUEST
-            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", null)) }
-            e.status shouldBe HttpStatus.BAD_REQUEST
-            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("", "Оператор")) }
+                shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("", "Оператор")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
             e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "Оператор")) }
+            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "1")) }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Роль с кодом OPERATOR уже существует"
+            e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("1", "Оператор")) }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Роль с названием Оператор уже существует"
+            e = shouldThrow { accessManagerClient.addRole(authHeader, null) }
             e.status shouldBe HttpStatus.BAD_REQUEST
         }
 

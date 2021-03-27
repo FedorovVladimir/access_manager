@@ -3,7 +3,6 @@ package tech.estesis.access_manager
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 import tech.crabs.access_manager.entities.Function
-import tech.crabs.access_manager.entities.Role
 import tech.crabs.access_manager.entities.RoleInfo
 import java.util.*
 
@@ -20,7 +19,7 @@ interface AccessManagerClient {
     fun getRoleByCode(@Header authorization: String, code: String): RoleInfo
 
     @Post("/roles")
-    fun addRole(@Header authorization: String, @Body role: RoleInfo)
+    fun addRole(@Header authorization: String, @Body role: RoleInfo?)
 
     @Delete("/roles/{code}")
     fun deleteRole(@Header authorization: String, code: String)

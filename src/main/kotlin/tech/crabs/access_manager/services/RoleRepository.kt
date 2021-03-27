@@ -15,4 +15,6 @@ interface RoleRepository : CrudRepository<Role, Long> {
     fun findAllOrderByCode(): List<Role>
 
     fun existsByCode(code: String): Boolean
+
+    fun existsByName(code: String): Boolean
 }

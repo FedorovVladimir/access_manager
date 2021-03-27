@@ -28,6 +28,9 @@ class AccessManagerService {
         if (roleRepository.existsByCode(role.code!!)) {
             throw Exception("Роль с кодом ${role.code} уже существует")
         }
+        if (roleRepository.existsByName(role.name!!)) {
+            throw Exception("Роль с названием ${role.name} уже существует")
+        }
         val r = roleRepository.save(
             Role(role.code!!, role.name!!)
         )
