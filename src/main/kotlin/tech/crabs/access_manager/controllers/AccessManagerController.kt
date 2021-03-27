@@ -17,6 +17,7 @@ import tech.crabs.access_manager.services.AccessManagerService
 import java.util.*
 import javax.inject.Inject
 import javax.validation.Valid
+import javax.validation.constraints.NotNull
 
 @Controller
 @Validated
@@ -42,8 +43,8 @@ class AccessManagerController {
     }
 
     @Post("/roles")
-    fun addRole(@Body @Valid role: RoleInfo): HttpResponse<Role> {
-        return HttpResponse.created(accessManagerService.addRole(role))
+    fun addRole(@NotNull @Body @Valid role: RoleInfo?): HttpResponse<Role> {
+        return HttpResponse.created(accessManagerService.addRole(role!!))
     }
 
     @Delete("/roles/{code}")
