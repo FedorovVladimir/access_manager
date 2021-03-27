@@ -24,8 +24,13 @@ class AccessManagerService {
         return roleRepository.findAllOrderByCode().map { convert(it) }
     }
 
-    fun addRole(role: Role): Role {
-        val r = roleRepository.save(role)
+    fun addRole(role: RoleInfo): Role {
+        if (roleRepository.existsByCode(role.code!!)) {
+            throw Exception("Роль с кодом ${role.code} уже существует")
+        }
+        val r = roleRepository.save(
+            Role(role.code!!, role.name!!)
+        )
         val functions = functionRepository.findAll()
         permissionRepository.saveAll(functions.map { Permission(UUID.randomUUID(), r, it) })
         return r
@@ -54,8 +59,8 @@ class AccessManagerService {
 
     private fun convert(o: Role): RoleInfo {
         return RoleInfo(
-            o.code!!,
-            o.name!!,
+            o.code,
+            o.name,
             permissionRepository.findByRoleOrderByFunction(o)
         )
     }

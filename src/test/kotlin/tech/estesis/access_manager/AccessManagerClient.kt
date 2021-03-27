@@ -20,7 +20,7 @@ interface AccessManagerClient {
     fun getRoleByCode(@Header authorization: String, code: String): RoleInfo
 
     @Post("/roles")
-    fun addRole(@Header authorization: String, @Body role: Role)
+    fun addRole(@Header authorization: String, @Body role: RoleInfo)
 
     @Delete("/roles/{code}")
     fun deleteRole(@Header authorization: String, code: String)

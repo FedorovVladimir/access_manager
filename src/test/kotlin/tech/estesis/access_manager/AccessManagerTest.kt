@@ -6,10 +6,11 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.micronaut.context.annotation.Value
+import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import tech.crabs.access_manager.entities.Function
-import tech.crabs.access_manager.entities.Role
+import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.FunctionRepository
 import tech.crabs.access_manager.services.PermissionRepository
 import tech.crabs.access_manager.services.RoleRepository
@@ -56,7 +57,7 @@ class AccessManagerTest : StringSpec() {
         }
 
         "Добавляем роль 'Администратор'" {
-            accessManagerClient.addRole(authHeader, Role("ADMIN", "Администратор"))
+            accessManagerClient.addRole(authHeader, RoleInfo("ADMIN", "Администратор"))
         }
 
         "В системе есть одна роль" {
@@ -79,7 +80,39 @@ class AccessManagerTest : StringSpec() {
         }
 
         "Добавляем роль 'Оператор'" {
-            accessManagerClient.addRole(authHeader, Role("OPERATOR", "Оператор"))
+            accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "Оператор"))
+        }
+
+        "Проверка при создании роли" {
+            var e: HttpClientResponseException = shouldThrow {
+                accessManagerClient.addRole(authHeader, RoleInfo(null, "Оператор"))
+            }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Поле код не может быть пустым"
+
+            e = shouldThrow {
+                accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", null))
+            }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Поле название не может быть пустым"
+
+            e = shouldThrow {
+                accessManagerClient.addRole(authHeader, RoleInfo("", "Оператор"))
+            }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Поле код не может быть пустым"
+
+            e = shouldThrow {
+                accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", ""))
+            }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Поле название не может быть пустым"
+
+            e = shouldThrow {
+                accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "Оператор"))
+            }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Роль с кодом OPERATOR уже существует"
         }
 
         "У роли 'Оператор' есть одно право" {

@@ -13,4 +13,6 @@ interface RoleRepository : CrudRepository<Role, Long> {
     fun deleteByCode(code: String)
 
     fun findAllOrderByCode(): List<Role>
+
+    fun existsByCode(code: String): Boolean
 }
