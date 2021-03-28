@@ -10,6 +10,7 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
 import tech.crabs.access_manager.entities.Function
+import tech.crabs.access_manager.entities.FunctionInfo
 import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.FunctionRepository
 import tech.crabs.access_manager.services.PermissionRepository
@@ -65,7 +66,23 @@ class AccessManagerTest : StringSpec() {
         }
 
         "Добавляем функцию 'Создание задачи'" {
-            accessManagerClient.addFunction(authHeader, Function("create_task", "Создание задачи"))
+            accessManagerClient.addFunction(authHeader, FunctionInfo("create_task", "Создание задачи"))
+        }
+
+        "Проверка при создании функции" {
+            var e: HttpClientResponseException =
+                shouldThrow { accessManagerClient.addFunction(authHeader, FunctionInfo("", "Создание задачи")) }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e = shouldThrow { accessManagerClient.addFunction(authHeader, FunctionInfo("create_task", "")) }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e = shouldThrow { accessManagerClient.addFunction(authHeader, FunctionInfo("create_task", "1")) }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Функция с кодом 'create_task' уже существует"
+            e = shouldThrow { accessManagerClient.addFunction(authHeader, FunctionInfo("1", "Создание задачи")) }
+            e.status shouldBe HttpStatus.BAD_REQUEST
+            e.message shouldBe "Функция с названием 'Создание задачи' уже существует"
+            e = shouldThrow { accessManagerClient.addFunction(authHeader, null) }
+            e.status shouldBe HttpStatus.BAD_REQUEST
         }
 
         "В системе есть одна функция" {
@@ -91,10 +108,10 @@ class AccessManagerTest : StringSpec() {
             e.status shouldBe HttpStatus.BAD_REQUEST
             e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("OPERATOR", "1")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e.message shouldBe "Роль с кодом OPERATOR уже существует"
+            e.message shouldBe "Роль с кодом 'OPERATOR' уже существует"
             e = shouldThrow { accessManagerClient.addRole(authHeader, RoleInfo("1", "Оператор")) }
             e.status shouldBe HttpStatus.BAD_REQUEST
-            e.message shouldBe "Роль с названием Оператор уже существует"
+            e.message shouldBe "Роль с названием 'Оператор' уже существует"
             e = shouldThrow { accessManagerClient.addRole(authHeader, null) }
             e.status shouldBe HttpStatus.BAD_REQUEST
         }

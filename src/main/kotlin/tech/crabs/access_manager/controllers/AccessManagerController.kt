@@ -9,11 +9,10 @@ import io.micronaut.security.annotation.Secured
 import io.micronaut.security.authentication.AuthorizationException
 import io.micronaut.security.rules.SecurityRule
 import io.micronaut.validation.Validated
+import tech.crabs.access_manager.entities.*
 import tech.crabs.access_manager.entities.Function
-import tech.crabs.access_manager.entities.ResponseData
-import tech.crabs.access_manager.entities.Role
-import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.AccessManagerService
+import tech.crabs.access_manager.services.FunctionRepository
 import java.util.*
 import javax.inject.Inject
 import javax.validation.Valid
@@ -59,8 +58,8 @@ class AccessManagerController {
     }
 
     @Post("/functions")
-    fun addFunction(@Body function: Function): HttpResponse<Function> {
-        return HttpResponse.created(accessManagerService.addFunction(function))
+    fun addFunction(@NotNull @Body @Valid function: FunctionInfo?): HttpResponse<Function> {
+        return HttpResponse.created(accessManagerService.addFunction(function!!))
     }
 
     @Delete("/functions/{code}")

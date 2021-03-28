@@ -1,9 +1,7 @@
 package tech.crabs.access_manager.services
 
+import tech.crabs.access_manager.entities.*
 import tech.crabs.access_manager.entities.Function
-import tech.crabs.access_manager.entities.Permission
-import tech.crabs.access_manager.entities.Role
-import tech.crabs.access_manager.entities.RoleInfo
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -26,10 +24,10 @@ class AccessManagerService {
 
     fun addRole(role: RoleInfo): Role {
         if (roleRepository.existsByCode(role.code!!)) {
-            throw Exception("Роль с кодом ${role.code} уже существует")
+            throw Exception("Роль с кодом '${role.code}' уже существует")
         }
         if (roleRepository.existsByName(role.name!!)) {
-            throw Exception("Роль с названием ${role.name} уже существует")
+            throw Exception("Роль с названием '${role.name}' уже существует")
         }
         val r = roleRepository.save(
             Role(role.code!!, role.name!!)
@@ -43,8 +41,16 @@ class AccessManagerService {
         return functionRepository.findAllOrderByCode()
     }
 
-    fun addFunction(function: Function): Function {
-        val f = functionRepository.save(function)
+    fun addFunction(function: FunctionInfo): Function {
+        if (functionRepository.existsByCode(function.code!!)) {
+            throw Exception("Функция с кодом '${function.code}' уже существует")
+        }
+        if (functionRepository.existsByName(function.name!!)) {
+            throw Exception("Функция с названием '${function.name}' уже существует")
+        }
+        val f = functionRepository.save(
+            Function(function.code!!, function.name!!)
+        )
         val roles = roleRepository.findAll()
         permissionRepository.saveAll(roles.map { Permission(UUID.randomUUID(), it, f) })
         return f

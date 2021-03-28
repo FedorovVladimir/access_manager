@@ -3,6 +3,7 @@ package tech.estesis.access_manager
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
 import tech.crabs.access_manager.entities.Function
+import tech.crabs.access_manager.entities.FunctionInfo
 import tech.crabs.access_manager.entities.RoleInfo
 import java.util.*
 
@@ -28,7 +29,7 @@ interface AccessManagerClient {
     fun getAllFunctions(@Header authorization: String): List<Function>
 
     @Post("/functions")
-    fun addFunction(@Header authorization: String, @Body function: Function)
+    fun addFunction(@Header authorization: String, @Body function: FunctionInfo?)
 
     @Delete("/functions/{code}")
     fun deleteFunctionByCode(@Header authorization: String, code: String)

@@ -11,4 +11,8 @@ interface FunctionRepository : CrudRepository<Function, Long> {
     fun findAllOrderByCode(): List<Function>
 
     fun deleteByCode(code: String)
+
+    fun existsByCode(code: String): Boolean
+
+    fun existsByName(name: String): Boolean
 }
