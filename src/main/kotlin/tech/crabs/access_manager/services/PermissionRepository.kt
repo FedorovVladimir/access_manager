@@ -23,4 +23,10 @@ interface PermissionRepository : CrudRepository<Permission, UUID> {
         Join(value = "function")
     )
     fun findByUuid(uuid: UUID): Permission
+
+    @JoinSpecifications(
+        Join(value = "role"),
+        Join(value = "function")
+    )
+    override fun findAll(): List<Permission>
 }

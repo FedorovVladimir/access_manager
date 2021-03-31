@@ -9,10 +9,10 @@ import io.micronaut.security.annotation.Secured
 import io.micronaut.security.authentication.AuthorizationException
 import io.micronaut.security.rules.SecurityRule
 import io.micronaut.validation.Validated
+import tech.crabs.access_manager.data.Data
 import tech.crabs.access_manager.entities.*
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.services.AccessManagerService
-import tech.crabs.access_manager.services.FunctionRepository
 import java.util.*
 import javax.inject.Inject
 import javax.validation.Valid
@@ -72,6 +72,16 @@ class AccessManagerController {
     fun changePermissionByUuid(uuid: UUID): ResponseData {
         accessManagerService.changePermission(uuid)
         return ResponseData("ok")
+    }
+
+    @Get("/data")
+    fun getData(): Data {
+        return accessManagerService.getData()
+    }
+
+    @Post("/data")
+    fun setData(@NotNull @Body data: Data?): Data {
+        return accessManagerService.setData(data!!)
     }
 
     @Error

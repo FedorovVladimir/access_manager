@@ -2,6 +2,7 @@ package tech.estesis.access_manager
 
 import io.micronaut.http.annotation.*
 import io.micronaut.http.client.annotation.Client
+import tech.crabs.access_manager.data.Data
 import tech.crabs.access_manager.entities.Function
 import tech.crabs.access_manager.entities.FunctionInfo
 import tech.crabs.access_manager.entities.RoleInfo
@@ -36,4 +37,10 @@ interface AccessManagerClient {
 
     @Post("/permissions/{uuid}/change")
     fun changePermissionByUuid(@Header authorization: String, uuid: UUID)
+
+    @Get("/data")
+    fun getData(@Header authorization: String): Data
+
+    @Post("/data")
+    fun setData(@Header authorization: String, @Body data: Data)
 }

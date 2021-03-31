@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.info.Info
 @OpenAPIDefinition(
     info = Info(
         title = "access_manager",
-        version = "0.1",
+        version = "0.3",
         description = "Вспомогательное ПО для контроля разрешений пользователей с различными ролями на доступ к той или иной функциональности основного ПО.",
         contact = Contact(
             url = "https://github.com/FedorovVladimir",

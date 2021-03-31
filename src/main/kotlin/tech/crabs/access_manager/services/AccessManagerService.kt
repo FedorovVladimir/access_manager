@@ -1,5 +1,6 @@
 package tech.crabs.access_manager.services
 
+import tech.crabs.access_manager.data.Data
 import tech.crabs.access_manager.entities.*
 import tech.crabs.access_manager.entities.Function
 import java.util.*
@@ -80,5 +81,20 @@ class AccessManagerService {
 
     fun deleteFunction(code: String) {
         functionRepository.deleteByCode(code)
+    }
+
+    fun getData(): Data {
+        return Data(
+            roleRepository.findAll(),
+            functionRepository.findAll(),
+            permissionRepository.findAll()
+        )
+    }
+
+    fun setData(data: Data): Data {
+        data.roles?.let { roleRepository.saveAll(it) }
+        data.functions?.let { functionRepository.saveAll(it) }
+        data.permissions?.let { permissionRepository.saveAll(it) }
+        return data
     }
 }
