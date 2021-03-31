@@ -10,7 +10,7 @@ services:
 
   access_manager:
     container_name: access_manager
-    image: vo13crabs/aceess_manager:0.3
+    image: vo13crabs/aceess_manager:0.4
     restart: always
     environment:
       BASE_URL: jdbc:postgresql://base:5432/postgres
@@ -36,4 +36,4 @@ services:
     volumes:
       - base_volume:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 5433:5432
