@@ -92,6 +92,9 @@ class AccessManagerService {
     }
 
     fun setData(data: Data): Data {
+        roleRepository.deleteAll()
+        functionRepository.deleteAll()
+        permissionRepository.deleteAll()
         data.roles?.let { roleRepository.saveAll(it) }
         data.functions?.let { functionRepository.saveAll(it) }
         data.permissions?.let { permissionRepository.saveAll(it) }
