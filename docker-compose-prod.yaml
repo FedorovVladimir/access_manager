@@ -10,7 +10,7 @@ services:
 
   access_manager:
     container_name: access_manager
-    image: vo13crabs/aceess_manager:0.5
+    image: vo13crabs/aceess_manager:0.6
     restart: always
     environment:
       BASE_URL: jdbc:postgresql://base:5432/postgres
