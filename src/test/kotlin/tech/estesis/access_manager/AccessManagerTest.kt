@@ -184,6 +184,10 @@ class AccessManagerTest : StringSpec() {
             accessManagerClient.setData(authHeader, data)
         }
 
+        "Загружаем данные ещё раз" {
+            accessManagerClient.setData(authHeader, data)
+        }
+
         "Система снова в боевом состоянии" {
             val data = accessManagerClient.getData(authHeader)
             data.roles.shouldNotBeNull()
