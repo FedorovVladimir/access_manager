@@ -17,4 +17,6 @@ interface RoleRepository : CrudRepository<Role, Long> {
     fun existsByCode(code: String): Boolean
 
     fun existsByName(code: String): Boolean
+
+    override fun findAll(): List<Role>
 }

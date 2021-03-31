@@ -3,13 +3,14 @@ package tech.estesis.access_manager
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
-import tech.crabs.access_manager.entities.Function
+import tech.crabs.access_manager.data.Data
 import tech.crabs.access_manager.entities.FunctionInfo
 import tech.crabs.access_manager.entities.RoleInfo
 import tech.crabs.access_manager.services.FunctionRepository
@@ -42,6 +43,8 @@ class AccessManagerTest : StringSpec() {
     private lateinit var authHeader: String
 
     private lateinit var authHeaderBad: String
+
+    private lateinit var data: Data
 
     init {
         "Инициализация" {
@@ -94,6 +97,16 @@ class AccessManagerTest : StringSpec() {
             val permissions = role.permissions
             permissions.shouldNotBeNull()
             permissions.size shouldBe 1
+        }
+
+        "Получение данных для синхронизации" {
+            data = accessManagerClient.getData(authHeader)
+            data.roles.shouldNotBeNull()
+            data.roles!!.size shouldBe 1
+            data.functions.shouldNotBeNull()
+            data.functions!!.size shouldBe 1
+            data.permissions.shouldNotBeNull()
+            data.permissions!!.size shouldBe 1
         }
 
         "Добавляем роль 'Оператор'" {
@@ -154,6 +167,31 @@ class AccessManagerTest : StringSpec() {
         "Проверка коректности логина и пароля" {
             accessManagerClient.login(authHeader)
             shouldThrow<HttpClientResponseException> { accessManagerClient.login(authHeaderBad) }
+        }
+
+        "Удаляем роль 'Оператор'" {
+            accessManagerClient.deleteRole(authHeader, "OPERATOR")
+        }
+
+        "Теперь система пустая" {
+            val data = accessManagerClient.getData(authHeader)
+            data.roles.shouldBeNull()
+            data.functions.shouldBeNull()
+            data.permissions.shouldBeNull()
+        }
+
+        "Загружаем данные" {
+            accessManagerClient.setData(authHeader, data)
+        }
+
+        "Система снова в боевом состоянии" {
+            val data = accessManagerClient.getData(authHeader)
+            data.roles.shouldNotBeNull()
+            data.roles!!.size shouldBe 1
+            data.functions.shouldNotBeNull()
+            data.functions!!.size shouldBe 1
+            data.permissions.shouldNotBeNull()
+            data.permissions!!.size shouldBe 1
         }
     }
 

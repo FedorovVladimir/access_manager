@@ -15,4 +15,6 @@ interface FunctionRepository : CrudRepository<Function, Long> {
     fun existsByCode(code: String): Boolean
 
     fun existsByName(name: String): Boolean
+
+    override fun findAll(): List<Function>
 }
