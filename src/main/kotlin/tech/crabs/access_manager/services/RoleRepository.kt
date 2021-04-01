@@ -5,7 +5,7 @@ import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.repository.CrudRepository
 import tech.crabs.access_manager.entities.Role
 
-@JdbcRepository(dialect = Dialect.POSTGRES)
+@JdbcRepository(dialect = Dialect.H2)
 interface RoleRepository : CrudRepository<Role, Long> {
 
     fun findByCode(code: String): Role

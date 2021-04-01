@@ -9,7 +9,7 @@ import tech.crabs.access_manager.entities.Permission
 import tech.crabs.access_manager.entities.Role
 import java.util.*
 
-@JdbcRepository(dialect = Dialect.POSTGRES)
+@JdbcRepository(dialect = Dialect.H2)
 interface PermissionRepository : CrudRepository<Permission, UUID> {
 
     @JoinSpecifications(

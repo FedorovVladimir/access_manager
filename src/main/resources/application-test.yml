@@ -1,7 +1,0 @@
-datasources:
-  default:
-    url: jdbc:postgresql://localhost:5432/postgres
-    driverClassName: org.postgresql.Driver
-    username: postgres
-    password: access_manager
-    dialect: POSTGRES

@@ -5,7 +5,7 @@ import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.repository.CrudRepository
 import tech.crabs.access_manager.entities.Function
 
-@JdbcRepository(dialect = Dialect.POSTGRES)
+@JdbcRepository(dialect = Dialect.H2)
 interface FunctionRepository : CrudRepository<Function, Long> {
 
     fun findAllOrderByCode(): List<Function>

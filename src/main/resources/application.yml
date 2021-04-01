@@ -34,11 +34,10 @@ micronaut:
 
 datasources:
   default:
-    url: "${BASE_URL:`jdbc:postgresql://localhost:5432/postgres`}"
-    driverClassName: org.postgresql.Driver
-    username: postgres
-    password: "${BASE_PASSWORD:`access_manager`}"
-    dialect: POSTGRES
+    url: ${JDBC_URL:`jdbc:h2:~/access_manager_db`}
+    username: ${JDBC_USER:`user`}
+    password: ${JDBC_PASSWORD:`password`}
+    driverClassName: ${JDBC_DRIVER:org.h2.Driver}
 
 jpa:
   default:
