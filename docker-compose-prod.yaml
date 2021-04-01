@@ -1,39 +1,17 @@
 version: "3.3"
 
-networks:
-  net:
-
-volumes:
-  base_volume: { }
-
 services:
 
   access_manager:
     container_name: access_manager
-    image: vo13crabs/aceess_manager:0.7
+    image: vo13crabs/aceess_manager:0.8
     restart: always
+    command: java -Dcom.sun.management.jmxremote -Xmx256m -jar app.jar
     environment:
-      BASE_URL: jdbc:postgresql://base:5432/postgres
-      BASE_PASSWORD: access_manager
-      ADMIN_LOGIN: "admin"
-      ADMIN_PASSWORD: "admin"
-    networks:
-      - net
-    depends_on:
-      - base
+      JDBC_URL: "jdbc:h2:~/access_manager_db"
+      JDBC_USER: "admin"
+      JDBC_PASSWORD: "admin"
+    volumes:
+      - /var:/var
     ports:
       - 8080:8080
-
-  base:
-    container_name: base
-    image: postgres:11.10
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: access_manager
-    networks:
-      - net
-    volumes:
-      - base_volume:/var/lib/postgresql/data
-    ports:
-      - 5433:5432
